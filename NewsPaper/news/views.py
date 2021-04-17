@@ -4,12 +4,13 @@ from .models import Post
 class NewsList(ListView):
     model = Post
     template_name = 'news_list.html'
-    context_object_name = 'news'
+    context_object_name = 'news_list'
     ordering = '-pub_date'
-    paginate_by = 10
 
 
 class NewsDetail(DetailView):
     model = Post
     template_name = 'news.html'
-    context_object_name = 'new'
+    context_object_name = 'news'
+    queryset = Post.objects.filter(type=Post.NEWS).values()
+
