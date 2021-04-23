@@ -1,0 +1,49 @@
+{% extends 'flatpages/default.html' %}
+
+{% load custom_filters %}
+
+{% block title %}
+Поиск новости
+{{ filter.qs|length }}
+{% endblock title %}
+
+{% block content %}
+    <form method="GET">
+        {{ filter.form }}
+        <input type="submit" value="Найти">
+    </form>
+    <hr>
+    <table>
+        <thead>
+            <th>
+               Тема
+            </th>
+            <th>
+                Дата публикации
+            </th>
+            <th>
+                Текст статьи
+            </th>
+            <th>
+                Автор статьи
+            </th>
+        </thead>
+    {% for news in filter.qs %}
+        <tr>
+            <td>
+                <h1>{{ news.header|censor }}</h1>
+            </td>
+            <td>
+                <h6>{{ news.pub_date|date:'d.m.Y G:i' }}</h6>
+            </td>
+            <td>
+                <p>{{ news.text|truncatechars:50|censor }}</p>
+            </td>
+            <td>
+                <p>{{ news.author }}</p>
+           </td>
+            </tr>
+        {% endfor %}
+    </table>
+
+{% endblock content %}

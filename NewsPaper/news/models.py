@@ -61,6 +61,8 @@ class Post(models.Model):
     def preview(self):
         return self.text[:125] + ('...' if len(self.text) > 124 else '')
 
+
+
     class Meta:
         verbose_name='Новость'
         verbose_name_plural='Новости'

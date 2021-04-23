@@ -8,5 +8,5 @@ class PostFilter(FilterSet):
         fields = {
             'pub_date': ['gt'],
             'header': ['icontains'],
-            'author.author_id.last_name': ['icontains'],
+            'author__author_id__last_name': ['icontains'],
         }
