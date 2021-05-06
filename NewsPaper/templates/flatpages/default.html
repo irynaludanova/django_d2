@@ -26,7 +26,7 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
       <div class="container">
-        <a class="navbar-brand" href="#">Django flatpages</a>
+        <a class="navbar-brand" href="#">NewsPaper</a>
         <button
           class="navbar-toggler"
           type="button"
@@ -39,11 +39,11 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
+
           <ul class="navbar-nav ml-auto">
             <li class="nav-item active">
               <a class="nav-link" href="/about/"
-                >About<span class="sr-only">(current)</span></a
-              >
+                >About<span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="/info/">Info</a>
@@ -63,6 +63,17 @@
             <li class="nav-item">
               <a class="nav-link" href="/downloads/">Downloads</a>
             </li>
+            {% load account %}
+            {% if user.is_authenticated %}
+            <li><div class="nav-link py-3 px-0 px-lg-3 rounded">{% user_display user %}</div></li>
+            <li><a class="nav-link py-3 px-0 px-lg-3 rounded" href="{% url 'account_logout' %}">Sign Out</a></li>
+            {% comment %} {% if is_not_authors %}<li>
+             <a class="btn btn-success" href="sign/upgrade/"> Стать автором!</a>
+             </li>  {% endif %}{% endcomment %}
+            {% else %}
+            <li><a class="btn btn-outline-primary btn-sm nav-link py-3 px-0 px-lg-3 rounded" href="{% url 'account_login' %}">Sign In</a></li>
+            <li><a class="btn btn-primary btn-sm nav-link py-3 px-0 px-lg-3 rounded" href="{% url 'account_signup' %}">Sign Up</a></li>
+            {% endif %}
           </ul>
         </div>
       </div>
