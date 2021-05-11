@@ -96,3 +96,7 @@ class Comment(models.Model):
         verbose_name='Комментарий'
         verbose_name_plural='Комментарии'
 
+class Mail(models.Model):
+    subscribers = models.ForeignKey(django.contrib.auth.get_user_model(),
+                                    on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)

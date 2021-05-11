@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # 'appointment.apps.AppointmentConfig',
     'django.contrib.sites',
     'django.contrib.flatpages',
 
@@ -55,7 +56,16 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.github',
+
+    'django_apscheduler',
 ]
+
+
+# формат даты, которую будет воспрнимать наш задачник(вспоминаем урок по фильтрам)
+APSCHEDULER_DATETIME_FORMAT = "N j, Y, f:s a"
+
+# если задача не выполняется за 25 секунд, то она автоматически снимается, можете поставить время побольше, но как правило, это сильно бьёт по производительности сервера
+APSCHEDULER_RUN_NOW_TIMEOUT = 25  # Seconds
 
 # Provider specific settings
 SOCIALACCOUNT_PROVIDERS = {
@@ -93,6 +103,7 @@ MIDDLEWARE = [
 
 LOGIN_URL = 'accounts/login/'
 
+DEFAULT_FROM_EMAIL = 'iludanova@yandex.ru'
 
 SITE_ID = 1
 
@@ -192,5 +203,21 @@ ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_VERIFICATION = 'none'
-
+ACCOUNT_CONFIRM_EMAIL_ON_GET = True
 ACCOUNT_FORMS = {'signup': 'sign.models.BasicSignupForm'}
+ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS =30
+
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+
+EMAIL_HOST = 'smtp.yandex.ru' # адрес сервера Яндекс-почты для всех один и тот же
+EMAIL_PORT = 465 # порт smtp сервера тоже одинаковый
+EMAIL_HOST_USER = 'iludanova' # ваше имя пользователя, например если ваша почта user@yandex.ru, то сюда надо писать user, иными словами, это всё то что идёт до собаки
+EMAIL_HOST_PASSWORD = '3120524467Aa' # пароль от почты
+EMAIL_USE_SSL = True # Яндекс использует ssl,  но включать его здесь обязательно
+
+ADMINS = [
+    ('Ludanova', 'irynaludanova@gmail.com'),
+    # список всех админов в формате ('имя', 'их почта')
+]
+SERVER_EMAIL = 'iludanova@yandex.ru' # это будет у нас вместо аргумента FROM в массовой рассылке
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER+ '@yandex.ru'

@@ -5,6 +5,22 @@
 {% endblock title %}
 
 {% block content %}
+{% if category %}
+        {% load account %}
+
+        <h5>
+        {% for cat in category %}
+            <div>
+                {{ cat.category__category }}
+                {% if user.is_authenticated %}
+                    {% if cat.category not in subscribed %}
+                        | <button><a href="{% url 'subscribe_category' cat.category %}">Подписаться</a></button>
+                    {% endif %}
+                {% endif %}
+            </div>
+        {% endfor %}
+        </h5>
+    {% endif %}
 <table>
     <thead>
         <th>
